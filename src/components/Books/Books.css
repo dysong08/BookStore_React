@@ -1,0 +1,69 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.main-container, .item-container {
+    padding: 10px 10px;
+    margin: 10px 10px;
+}
+
+.main-container {
+    margin: 30px 30px;
+}
+
+.item-container, .item-card  {
+    padding: 10px 10px;
+    margin: 10px 10px;
+}
+
+.item-container {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+}
+.item-card {
+    background-color: rgb(235, 235, 235);
+    border-radius: 10px;
+    width: 300px;
+    height: 400px;
+    max-width: 300px;
+    max-height: 420px;
+}
+
+.font-interval {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.font-b {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.font-s {
+    font-size: 12px;
+    color: gray;
+}
+.thumnail-box {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+.thumnail {
+    width: 190px;
+    height: 275px;
+    max-width: 300px;
+    max-height: 450px;
+}
+
+.possible-rent {
+
+}
+
+.impossible-rent {
+    pointer-events: none;  /* 클릭 막기 */
+    opacity: 0.5;          /* 흐리게 표시 */
+    cursor: not-allowed;  
+    color: gray;
+}

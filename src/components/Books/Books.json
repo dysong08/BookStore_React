@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "해리 포터와 마법사의 돌",
+    "author": "J.K. 롤링",
+    "isbn": "9780747532743",
+    "image": "https://covers.openlibrary.org/b/id/7984916-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "판타지",
+    "registeredAt": "2025-08-01"
+  },
+  {
+    "id": 2,
+    "title": "어린 왕자",
+    "author": "앙투안 드 생텍쥐페리",
+    "isbn": "9780156012195",
+    "image": "https://covers.openlibrary.org/b/id/8775116-L.jpg",
+    "rented": "Y",
+    "renter": "홍길동",
+    "returnDate": "2025-08-10",
+    "category": "동화",
+    "registeredAt": "2025-08-02"
+  },
+  {
+    "id": 3,
+    "title": "1984",
+    "author": "조지 오웰",
+    "isbn": "9780451524935",
+    "image": "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "디스토피아",
+    "registeredAt": "2025-08-03"
+  },
+  {
+    "id": 4,
+    "title": "죄와 벌",
+    "author": "도스토옙스키",
+    "isbn": "9780140449136",
+    "image": "https://covers.openlibrary.org/b/id/8231850-L.jpg",
+    "rented": "Y",
+    "renter": "김영희",
+    "returnDate": "2025-08-12",
+    "category": "고전",
+    "registeredAt": "2025-08-03"
+  },
+  {
+    "id": 5,
+    "title": "위대한 개츠비",
+    "author": "F. 스콧 피츠제럴드",
+    "isbn": "9780743273565",
+    "image": "https://covers.openlibrary.org/b/id/8225631-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "고전",
+    "registeredAt": "2025-08-04"
+  },
+  {
+    "id": 6,
+    "title": "백년 동안의 고독",
+    "author": "가브리엘 가르시아 마르케스",
+    "isbn": "9780060883287",
+    "image": "https://covers.openlibrary.org/b/id/8375065-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "라틴문학",
+    "registeredAt": "2025-08-05"
+  },
+  {
+    "id": 7,
+    "title": "노인과 바다",
+    "author": "어니스트 헤밍웨이",
+    "isbn": "9780684801223",
+    "image": "https://covers.openlibrary.org/b/id/8884567-L.jpg",
+    "rented": "Y",
+    "renter": "dysong08",
+    "returnDate": "2025-08-19",
+    "category": "소설",
+    "registeredAt": "2025-08-05"
+  },
+  {
+    "id": 8,
+    "title": "브레이브 뉴 월드",
+    "author": "올더스 헉슬리",
+    "isbn": "9780060850524",
+    "image": "https://covers.openlibrary.org/b/id/8775096-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "SF",
+    "registeredAt": "2025-08-06"
+  },
+  {
+    "id": 9,
+    "title": "이방인",
+    "author": "알베르 카뮈",
+    "isbn": "9780679720201",
+    "image": "https://covers.openlibrary.org/b/id/8312051-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "철학소설",
+    "registeredAt": "2025-08-06"
+  },
+  {
+    "id": 10,
+    "title": "데미안",
+    "author": "헤르만 헤세",
+    "isbn": "9780143106784",
+    "image": "https://covers.openlibrary.org/b/id/8905196-L.jpg",
+    "rented": "N",
+    "renter": null,
+    "returnDate": null,
+    "category": "청춘소설",
+    "registeredAt": "2025-08-07"
+  }
+]

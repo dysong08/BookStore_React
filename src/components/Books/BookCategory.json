@@ -1,0 +1,24 @@
+[
+  { "id": 1, "name": "문학", "depth": 1, "parentId": null },
+  { "id": 2, "name": "소설", "depth": 2, "parentId": 1 },
+  { "id": 3, "name": "판타지", "depth": 3, "parentId": 2 },
+  { "id": 4, "name": "SF", "depth": 3, "parentId": 2 },
+  { "id": 5, "name": "청춘소설", "depth": 3, "parentId": 2 },
+  { "id": 6, "name": "디스토피아", "depth": 3, "parentId": 2 },
+  { "id": 7, "name": "철학소설", "depth": 3, "parentId": 2 },
+  { "id": 8, "name": "고전", "depth": 2, "parentId": 1 },
+  { "id": 9, "name": "라틴문학", "depth": 3, "parentId": 8 },
+  { "id": 10, "name": "동화", "depth": 2, "parentId": 1 },
+
+  { "id": 11, "name": "자기계발", "depth": 1, "parentId": null },
+  { "id": 12, "name": "성공/처세", "depth": 2, "parentId": 11 },
+  { "id": 13, "name": "시간관리", "depth": 2, "parentId": 11 },
+
+  { "id": 14, "name": "과학", "depth": 1, "parentId": null },
+  { "id": 15, "name": "자연과학", "depth": 2, "parentId": 14 },
+  { "id": 16, "name": "물리학", "depth": 3, "parentId": 15 },
+  { "id": 17, "name": "천문학", "depth": 3, "parentId": 15 },
+  { "id": 18, "name": "기술/공학", "depth": 2, "parentId": 14 },
+  { "id": 19, "name": "컴퓨터 공학", "depth": 3, "parentId": 18 },
+  { "id": 20, "name": "전기전자", "depth": 3, "parentId": 18 }
+]
