@@ -16,8 +16,8 @@ function App() {
   const location = useLocation();
 
   const userId = sessionStorage.getItem("userId");
-  const userType = sessionStorage.getItem("userType");
-  const userInfo = {userId, userType};
+  const role = sessionStorage.getItem("role");
+  const userInfo = {userId, role};
 
   return (
     <div className="App">

@@ -8,7 +8,7 @@ export default function BookDetailCenter({props}) {
 
     const { id } = useParams();
     const fileInputRef = useRef(null);
-    const {userType, form, setForm, selected, setSelected, bookInfo, path} = props;
+    const {role, form, setForm, selected, setSelected, bookInfo, path} = props;
     const pathType = path.includes("bookUpdate") ? "update" : path.includes("bookDetail") ? "detail" : "add" ;
     const [bookArr, setBookArr] = useState({});
     const [thumnailFile, setThumnailFile] = useState(null);
@@ -126,39 +126,40 @@ export default function BookDetailCenter({props}) {
     return(
         <div>
             {
-                userType == "user" ? 
-            <div>
-                <span>도서 정보</span>
-                <p>{bookArr?.title}</p>
-                <span>등록일 : {bookArr?.registeredAt}</span>
-                <span>등록번호 : {bookArr?.isbn}</span>
-                <span>저자 : {bookArr?.author}</span>
-                <img src={bookArr?.image} style={{width:"300px", height:"350px"}}/>
-            </div>
-            :
-            <div>
-                <span style={{fontSize:"20px", fontWeight:"bold"}}>
-                    {pathType == "add" ? "도서 등록" : 
-                    pathType == "update" ? "도서 수정" : "도서 상세"}
-                </span>
-                <p>도서명 :  <input name="title"  value={pathType == "add" ? form?.title  : bookInfo?.title}  onChange={inputHandler}/></p>
-                <p>저자 :    <input name="author" value={pathType == "add" ? form?.author : bookInfo?.author} onChange={inputHandler}/></p>
-                <p>등록번호 : <input name="isbn"   value={pathType == "add" ? form?.isbn  : bookInfo?.isbn}   onChange={inputHandler} type="number"/></p>
-                <p>카테고리 : 
-                {
-                    <LevelSelect pathType={pathType} options={options} selected={selected} onChange={selectedCateHandler}/>
-                }
-                </p>
-                {
-                    previewUrl && (
-                        <img src={previewUrl} alt="미리보기"
-                        style={{width:"300px", height:"350px"}}/>
-                    )
-                }
-                <input type="file" accept="image/*" ref={fileInputRef} onChange={thumnailHandler}
-                    style={{display:"none"}}/>
-                <button onClick={toggelThumnailBtn}>사진 등록/변경</button>
-            </div>
+                role == "admin" ? 
+            
+                <div>
+                    <span style={{fontSize:"20px", fontWeight:"bold"}}>
+                        {pathType == "add" ? "도서 등록" : 
+                        pathType == "update" ? "도서 수정" : "도서 상세"}
+                    </span>
+                    <p>도서명 :  <input name="title"  value={pathType == "add" ? form?.title  : bookInfo?.title}  onChange={inputHandler}/></p>
+                    <p>저자 :    <input name="author" value={pathType == "add" ? form?.author : bookInfo?.author} onChange={inputHandler}/></p>
+                    <p>등록번호 : <input name="isbn"   value={pathType == "add" ? form?.isbn  : bookInfo?.isbn}   onChange={inputHandler} type="number"/></p>
+                    <p>카테고리 : 
+                    {
+                        <LevelSelect pathType={pathType} options={options} selected={selected} onChange={selectedCateHandler}/>
+                    }
+                    </p>
+                    {
+                        previewUrl && (
+                            <img src={previewUrl} alt="미리보기"
+                            style={{width:"300px", height:"350px"}}/>
+                        )
+                    }
+                    <input type="file" accept="image/*" ref={fileInputRef} onChange={thumnailHandler}
+                        style={{display:"none"}}/>
+                    <button onClick={toggelThumnailBtn}>사진 등록/변경</button>
+                </div>
+                :
+                <div>
+                    <span>도서 정보</span>
+                    <p>{bookArr?.title}</p>
+                    <span>등록일 : {bookArr?.registeredAt}</span>
+                    <span>등록번호 : {bookArr?.isbn}</span>
+                    <span>저자 : {bookArr?.author}</span>
+                    <img src={bookArr?.image} style={{width:"300px", height:"350px"}}/>
+                </div>
             }
         </div>
     )

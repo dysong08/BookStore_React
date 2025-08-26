@@ -6,7 +6,7 @@ export default function Header({userInfo}) {
    
     const logout = () => {
         sessionStorage.removeItem("userId");
-        sessionStorage.removeItem("userType");
+        sessionStorage.removeItem("role");
         nav("/");
     }
 
@@ -18,7 +18,9 @@ export default function Header({userInfo}) {
                     <strong>{userInfo.userId}</strong>님 <button onClick={logout}>Logout</button> <br/>
                     <Link to="MyTodo">Todo</Link>
                     <span> | </span>
-                    <Link to={userInfo.userType == "user" ? "myPage" : "adminPage"}>{userInfo.userType == "user" ? "MY" : "관리자페이지"}</Link>    
+                    <Link to={userInfo.role == "admin" ? "adminPage" : "myPage"}>{
+                        userInfo.role == "admin" ? "관리자페이지" : "마이페이지"}
+                    </Link>    
                    
                 </>
                     : <Link to="/Login">Login</Link>

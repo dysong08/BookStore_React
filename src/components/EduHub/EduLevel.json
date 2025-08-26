@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "입문", "code": "BEGINNER", "description": "프로그래밍을 처음 배우는 입문자용 과정" },
+  { "id": 2, "name": "초급", "code": "ELEMENTARY", "description": "기초 지식을 갖춘 학습자를 위한 초급 과정" },
+  { "id": 3, "name": "중급", "code": "INTERMEDIATE", "description": "기초를 넘어 실제 프로젝트에서 활용 가능한 수준"  },
+  { "id": 4, "name": "고급", "code": "ADVANCED", "description": "심화 지식과 실무 경험을 가진 학습자를 위한 과정"},
+  { "id": 5, "name": "전문가", "code": "EXPERT", "description": "특정 분야의 전문가 수준 학습자를 위한 고급 과정" }
+]

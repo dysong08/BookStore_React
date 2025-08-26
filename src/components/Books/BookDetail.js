@@ -6,7 +6,7 @@ import BookDetailCenter from "./BookDetail-center";
 export default function BookDetail({location, userInfo}) {
 
     const path = location.pathname;
-    const { userId, userType } = userInfo;
+    const { userId, role } = userInfo;
     const nav = useNavigate();
     const [bookInfo, SetBookInfo] = useState({});
     const { id } = useParams();
@@ -66,7 +66,7 @@ export default function BookDetail({location, userInfo}) {
     };
 
     const propsToCenter = {
-        userType, form, setForm, selected, setSelected, bookInfo, path
+        role, form, setForm, selected, setSelected, bookInfo, path
     };
 
     useEffect(() => {
@@ -82,7 +82,7 @@ export default function BookDetail({location, userInfo}) {
     return(
         <div>
             <div>
-                <Link to={userType == "user" ? "/bookList" : "/adminPage"}>{userType == "user" ? "목록" : "취소" }</Link>
+                <Link to={role == "admin" ? "/adminPage" : "/bookList"}>{role == "admin" ? "취소" : "목록" }</Link>
             </div>
             <hr />
             
@@ -104,17 +104,17 @@ export default function BookDetail({location, userInfo}) {
             <hr />
             <div>
                 {
-                    userType == "user" ? 
+                    role == "admin" ? 
+                    <div>
+                        <button onClick={submitBtn}>저장</button>
+                    </div>
+                    :
                     <div>
                         <button className={bookInfo?.rented === "Y" ? "impossible-rent" : "possible-rent"} 
                             onClick={() => BookRent(bookInfo.id)}
                             to={`/bookToRent/${id}`}>대여하기
                         </button>
                         <Link to={"/bookList"}>목록</Link>
-                    </div>
-                    :
-                    <div>
-                        <button onClick={submitBtn}>저장</button>
                     </div>
                 }
             </div>

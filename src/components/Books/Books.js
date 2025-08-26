@@ -9,7 +9,7 @@ export default function Books({location, userInfo}) {
 
     const nav = useNavigate();
     const path = location.pathname;
-    const {userId, userType} = userInfo;
+    // const {userId, role} = userInfo;
     const displayType = path.includes("/bookList") ? "card" : "row";
     const actionType = path.includes("/bookUpdate") ? "update" : path.includes("/bookDelete") ? "delete" : "add";
     const [bookArr, setBookArr] = useState([]);

@@ -1,0 +1,13 @@
+.roleBox{
+    background-color: beige;
+    width: 200px;
+    height: 300px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.activeRoleBox {
+    background-color: blue;
+}
