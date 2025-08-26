@@ -15,7 +15,7 @@ export default function BooksMenubar({setSearchCate }) {
     }, []);
 
     useEffect(() => {   
-        console.log("categoryArr : ", categoryArr)
+        // console.log("categoryArr : ", categoryArr)
     }, [categoryArr]);
 
 

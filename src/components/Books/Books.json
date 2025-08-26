@@ -9,6 +9,7 @@
     "renter": null,
     "returnDate": null,
     "category": "판타지",
+    "categoryId": 3,
     "registeredAt": "2025-08-01"
   },
   {
@@ -21,6 +22,7 @@
     "renter": "홍길동",
     "returnDate": "2025-08-10",
     "category": "동화",
+    "categoryId": 10,
     "registeredAt": "2025-08-02"
   },
   {
@@ -33,6 +35,7 @@
     "renter": null,
     "returnDate": null,
     "category": "디스토피아",
+    "categoryId": 6,
     "registeredAt": "2025-08-03"
   },
   {
@@ -45,6 +48,7 @@
     "renter": "김영희",
     "returnDate": "2025-08-12",
     "category": "고전",
+    "categoryId": 8,
     "registeredAt": "2025-08-03"
   },
   {
@@ -57,6 +61,7 @@
     "renter": null,
     "returnDate": null,
     "category": "고전",
+    "categoryId": 8,
     "registeredAt": "2025-08-04"
   },
   {
@@ -69,6 +74,7 @@
     "renter": null,
     "returnDate": null,
     "category": "라틴문학",
+    "categoryId": 9,
     "registeredAt": "2025-08-05"
   },
   {
@@ -81,6 +87,7 @@
     "renter": "dysong08",
     "returnDate": "2025-08-19",
     "category": "소설",
+    "categoryId": 2,
     "registeredAt": "2025-08-05"
   },
   {
@@ -93,6 +100,7 @@
     "renter": null,
     "returnDate": null,
     "category": "SF",
+    "categoryId": 4,
     "registeredAt": "2025-08-06"
   },
   {
@@ -105,6 +113,7 @@
     "renter": null,
     "returnDate": null,
     "category": "철학소설",
+    "categoryId": 7,
     "registeredAt": "2025-08-06"
   },
   {
@@ -117,6 +126,7 @@
     "renter": null,
     "returnDate": null,
     "category": "청춘소설",
+    "categoryId": 5,
     "registeredAt": "2025-08-07"
   }
 ]

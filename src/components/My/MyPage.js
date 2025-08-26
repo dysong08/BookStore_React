@@ -13,7 +13,7 @@ export default function MyPage() {
     }, []);
 
     useState(() => {
-        console.log(booksOnLoan)
+        // console.log(booksOnLoan)
     }, [booksOnLoan]);
 
     return (

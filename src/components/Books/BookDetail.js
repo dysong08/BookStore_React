@@ -3,12 +3,12 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import BookData from "./Books.json";
 import BookDetailCenter from "./BookDetail-center";
 
-export default function BookDetail() {
+export default function BookDetail({location, userInfo}) {
 
-    const userId = sessionStorage.getItem("userId");
-    const userType = sessionStorage.getItem("userType");
+    const path = location.pathname;
+    const { userId, userType } = userInfo;
     const nav = useNavigate();
-    const [bookArr, setBookArr] = useState({});
+    const [bookInfo, SetBookInfo] = useState({});
     const { id } = useParams();
 
     const [selected, setSelected] = useState([]);
@@ -17,8 +17,7 @@ export default function BookDetail() {
         author : '',
         isbn : '' ,
     });
-
-
+    
     const checkedRent = () => {
         return BookData?.filter((book) => book.renter == id);
     };
@@ -27,13 +26,13 @@ export default function BookDetail() {
         if(!id) {
             alert(`일시적인 오류가 있습니다. \n다시 시도해주세요.`);
         } else 
-        if(window.confirm(`${bookArr?.title} 도서를 대여하시겠습니까?`)) {
+        if(window.confirm(`${bookInfo?.title} 도서를 대여하시겠습니까?`)) {
             if(checkedRent()) {
                 if(window.confirm(`이미 대여중인 도서가 있습니다. \n마이페이지로 이동하시겠습니까?`)) {
                     nav("/myPage");
                 };
             } else {
-                if(window.confirm(`${bookArr?.title} 도서를 대여했습니다. \n마이페이지로 이동하시겠습니까?`)) {
+                if(window.confirm(`${bookInfo?.title} 도서를 대여했습니다. \n마이페이지로 이동하시겠습니까?`)) {
                     nav("/myPage");
                 };
             }
@@ -41,7 +40,7 @@ export default function BookDetail() {
     };
 
     const submitBtn = () => {
-        console.log(selected)
+        // console.log(selected)
 
         if(selected.length == 0 ) {
             alert(`카테고리를 선택해주세요.`);
@@ -67,18 +66,18 @@ export default function BookDetail() {
     };
 
     const propsToCenter = {
-        userType, form, setForm, selected, setSelected
+        userType, form, setForm, selected, setSelected, bookInfo, path
     };
 
     useEffect(() => {
         if(id) {
-            setBookArr(...BookData?.filter((book) => book.id == id));
+            SetBookInfo(...BookData?.filter((book) => book.id == id));
         }
     }, [id]);
 
     useEffect(() => {
-        // console.log(bookArr)
-    }, [bookArr]);
+        // console.log(bookInfo)
+    }, [bookInfo]);
 
     return(
         <div>
@@ -94,7 +93,12 @@ export default function BookDetail() {
             <hr />
 
             <div>
-                한줄평
+                <div>한줄평</div>
+                <div>
+                    아이디 : asdfg  
+                    작성일 : 2025.08.21
+                </div>
+                <span  >ㅇㅇㅇㅇ 너무 흥미로웠어요~</span>
             </div>
 
             <hr />
@@ -102,8 +106,8 @@ export default function BookDetail() {
                 {
                     userType == "user" ? 
                     <div>
-                        <button className={bookArr?.rented === "Y" ? "impossible-rent" : "possible-rent"} 
-                            onClick={() => BookRent(bookArr.id)}
+                        <button className={bookInfo?.rented === "Y" ? "impossible-rent" : "possible-rent"} 
+                            onClick={() => BookRent(bookInfo.id)}
                             to={`/bookToRent/${id}`}>대여하기
                         </button>
                         <Link to={"/bookList"}>목록</Link>

@@ -120,7 +120,8 @@ export default function Todo() {
                                         </button>
                                     </td>
                                     <td className="text-center">
-                                        <img src={todo.completed ? "/images/square-checked.svg" : "/images/square-unchecked.svg" } 
+                                        <img className="text-center-img"
+                                            src={todo.completed ? "/images/square-checked.svg" : "/images/square-unchecked.svg" } 
                                             onClick={() => toggleChecked(todo.id)}
                                         />
                                     </td>
