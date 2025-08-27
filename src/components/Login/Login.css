@@ -1,13 +1,115 @@
-.roleBox{
-    background-color: beige;
-    width: 200px;
-    height: 300px;
-    margin: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+/* 전체 화면 중앙 배치 */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  font-family: "Segoe UI", sans-serif;
 }
 
-.activeRoleBox {
-    background-color: blue;
+/* 카드 */
+.login-card {
+  display: flex;
+  width: 800px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.login-card ul {
+  margin: 0;
+  padding: 15px;
+  list-style: none;
+}
+
+/* 왼쪽 role 선택 */
+.role-section {
+  width: 50%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, #f17962, #b13b6f);
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.role-section h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.role-item {
+  list-style: none;
+  margin: 15px 0;
+  padding: 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.role-item:hover {
+  background: rgba(255,255,255,0.4);
+  transform: scale(1.05);
+}
+
+.role-item.activeRoleBox {
+    background-color: rgba(255,255,255,0.8);
+    font-size: 30px;
+    font-weight: bold;
+    color: #333333;              
+}
+
+/* 오른쪽 로그인 */
+.login-section {
+  width: 50%;
+  box-sizing: border-box;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-section h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #333;
+}
+
+.login-section input {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.login-section input:focus {
+  border-color: #2575fc;
+}
+
+.login-section button {
+  margin-top: 20px;
+  padding: 12px;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.login-section button:hover {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  transform: scale(1.05);
 }

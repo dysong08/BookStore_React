@@ -72,8 +72,9 @@ export default function Books({location, userInfo}) {
                         <div key={i} className={`item_card ${displayType == "card" ? "item_card_box" : "item_row_box"}`}>
                             <input type="checkbox" className={displayType == "card" ? "item_card_checkbox" : "item_row_checkbox"} 
                                     style={{display: actionType == "delete" ? "block" : "none"}} 
-                                    onClick={() => checkboxBtn(book.id)}/>
-                            <Link to={`/bookDetail/${book.id}`} className="item_content_box" >
+                                    onClick={() => checkboxBtn(book.id)}
+                            />
+                            <Link to={`/bookDetail/${book.id}`} className={displayType == "card" ? "item_card_content_box" : "item_row_content_box"} >
                                 <div className={displayType == "card" ? "item_card_thumnail_box" : "item_row_thumnail_box"}>
                                     <img src={book.image} className={displayType == "card" ? "item_card_thumnail" : "item_row_thumnail"}/>
                                 </div>
@@ -81,8 +82,8 @@ export default function Books({location, userInfo}) {
                                     <span className="font_b">{book.title}</span>
                                     <span className="font_s">{book.author}</span>
                                 </div>
-                                <p>{book.category}</p>
                             </Link>
+                            <p>카테고리 {`>`} {book.category}</p>
                             <div style={{display:"flex"}}>
                                 <button className={displayType == "card" ? "item_card_updateBtn" : "item_row_updateBtn"}
                                         style={{display: actionType == "update" ? "block" : "none"}}
