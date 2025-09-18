@@ -10,6 +10,8 @@ import MyPage from './components/My/MyPage.js';
 import AdminPage from './components/My/AdminPage.js';
 import BookAdd from './components/Books/BookAdd.js';
 import BookDetail from './components/Books/BookDetail.js';
+import EduHome from './components/EduHub/js/EduHome.js';
+import EduHeader from 'components/EduHub/js/part/EduHeader';
 
 
 function App() {
@@ -30,8 +32,6 @@ function App() {
       </div>
       
 
-      <br/>
-      <br/>
       
       <Routes>
         <Route path='/' element={<Home />}></Route>
@@ -47,6 +47,11 @@ function App() {
         <Route path='/adminPage/bookUpdate' element={<Books location={location} userInfo={userInfo}/>}></Route>
         <Route path='/adminPage/bookUpdate/:id' element={<BookDetail location={location} userInfo={userInfo}/>}></Route>
         <Route path='/adminPage/bookDelete' element={<Books location={location} userInfo={userInfo}/>}></Route>
+
+        <Route path='/eduhub' element={<EduHeader location={location} userInfo={userInfo}/>}></Route>
+        <Route path='/eduhub/detail/:id' element={<EduHeader location={location} userInfo={userInfo}/>}></Route>
+
+
       </Routes>
     
     </div>

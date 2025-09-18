@@ -1,0 +1,31 @@
+
+.bold {
+    font-weight: bold;
+}
+.lighter {
+    font-weight: lighter;
+}
+.strike {
+    text-decoration: line-through;
+}
+.red {
+    color: red;
+}
+.size18 {
+    font-size: 18px;
+}
+.size20 {
+    font-size: 20px;
+}
+.size22 {
+    font-size: 22px;
+}
+.size25 {
+    font-size: 25px;
+}
+.size30 {
+    font-size: 30px;
+}
+.size35 {
+    font-size: 35px;
+}

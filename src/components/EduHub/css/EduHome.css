@@ -1,0 +1,33 @@
+.edu_home_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, max-content));
+    justify-content: center;   /* 전체 중앙 */
+    justify-items: start;      /* 각 줄은 왼쪽 시작 */
+    gap: 100px;
+    margin: 0 200px;
+    min-height: 800px;
+}
+
+.edu_item_card {
+    width: 330px;
+    height: 400px;
+    background-color: aliceblue;
+    /* margin: 30px; */
+}
+
+
+.edu_item_imgbox {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.edu_item_card img {
+    width: 260px;
+    height: 190px;
+}
+
+.edu_item_infobox {
+    margin: 0 35px;
+}
+

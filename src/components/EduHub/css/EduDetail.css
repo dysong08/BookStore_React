@@ -1,0 +1,106 @@
+.edu_detail_container {
+    width: 100%;
+    position: relative;
+}
+.edu_detail_content_topbox {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.edu_detail_content_top {
+    display: flex;
+    width: 60%; 
+    justify-content: space-around;
+}
+.edu_detail_content_top > div {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+}
+.edu_detail_content_top_left {
+    flex-direction: column;
+}
+.edu_detail_content_top_left > div {
+    margin-bottom: 20px;
+}
+.edu_detail_content_top_right {
+    justify-content: flex-end;
+    padding: 30px 0;
+}
+
+
+.edu_detail_content_top_right> img {
+    width: 450px;
+    height: 300px;
+}
+
+
+.edu_detail_content {
+    width: 60%; 
+    margin: 0 auto;
+}
+
+.edu_detail_content_middle {
+    flex-direction: column;
+}
+.edu_detail_content_bottom {
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.edu_detail_content_middle,
+.edu_detail_content_bottom {
+    display: flex;
+    align-items: center;
+}
+.edu_detail_content_middle > div,
+.edu_detail_content_bottom > div {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edu_detail_content_middle div,
+.edu_detail_content_bottom div {
+    width: 550px;
+    height: 600px;
+    border:  1px solid;
+}
+.edu_detail_content_nav {
+    position: sticky;
+    /* top: 80px; */
+    z-index: 10;
+    background-color: #ffdede;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+}
+.edu_detail_content_nav > * {
+    width: 60%;
+}
+
+
+
+.scrollToTopImg {
+    position: fixed;
+    bottom: 50px;   
+    right: 50px;   
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;      
+    background-color: #3b82f6; 
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.scrollToTopImg:hover {
+  background-color: #2563eb; 
+  transform: translateY(-3px); /* 살짝 위로 떠오르는 효과 */
+}

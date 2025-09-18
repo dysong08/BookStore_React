@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
-export default function SearchBar({setSearchText}) {
+export default function SearchBar({searchText, setSearchText, placeholder, pathname}) {
 
     const [text, setText] = useState('');
 
@@ -16,12 +16,26 @@ export default function SearchBar({setSearchText}) {
         if(e.key === 'Enter') {
             searchBtn();
         }
-    }
+    };
+
+    const imgClassname = pathname.includes("eduHub") ?  "eduHub_searchimg" : "";
+        
+
+    useEffect(() => {
+        setText(searchText);
+    }, [searchText]);
 
     return (
-        <div>
-            <input onChange={(e) => searchInput(e.target.value)} value={text} onKeyDown={keyDownHandler} />
-            <button onClick={searchBtn}>검색</button>
+        <div className="searchbar_container">
+            <div></div>
+            <input onChange={(e) => searchInput(e.target.value)} 
+                value={text} onKeyDown={keyDownHandler} 
+                placeholder={placeholder ? placeholder : "" } 
+            />
+            <div className="searchbar_img_div">
+                <img className={imgClassname}
+                    src="/images/magnifying-glass-solid-full.svg" onClick={searchBtn} />
+            </div>
         </div>
     )
 }

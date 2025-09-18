@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 
-export default function Header({userInfo}) {
+export default function Header({userInfo, }) {
 
     const nav = useNavigate();
    
@@ -17,6 +17,8 @@ export default function Header({userInfo}) {
                 <>
                     <strong>{userInfo.userId}</strong>님 <button onClick={logout}>Logout</button> <br/>
                     <Link to="MyTodo">Todo</Link>
+                    <span> | </span>
+                    <Link to="/eduhub">EduHub</Link>
                     <span> | </span>
                     <Link to={userInfo.role == "admin" ? "adminPage" : "myPage"}>{
                         userInfo.role == "admin" ? "관리자페이지" : "마이페이지"}
