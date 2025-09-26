@@ -1,26 +1,49 @@
 import "components/Parts/css/Filter.css";
 import { useEffect, useState } from "react";
 import FilterLower from "./FilterLower";
+import EduCateApi from "components/EduHub/api/EduCateApi";
 
-export default function Filter({EduData, EduCategories, eduList, setEduList, cateList, setCateList}) {
+export default function Filter({EduData, EduCategories, eduList, setEduList, cateList, setCateList, eduCount, setEduCount}) {
 
-    const [majorCateId, setMajorCateId] = useState(null);
-    const [subCateId, setSubCateId] = useState(null);
+    const [majorCateId, setMajorCateId] = useState(0);
+    const [subCateId, setSubCateId] = useState(0);
     const [chkDiscount, setChkDiscount] = useState(false);
     const [chkIsFree, setChkIsFree] = useState(false);
 
-    const discountFt = (targetId) => {
-        return EduData.filter(item => item.parentId == targetId && item.price != item.discountPrice);
+
+    useEffect(() => {
+        const fetchInit = async () => {
+            const res = await EduCateApi.getCateDepth1();
+             console.log( res )
+        }
+        fetchInit();
+    }, []);
+
+    useEffect(() => {
+        setEduCount(eduList?.length);
+    }, [eduList]);
+
+    const ckDiscountFt = (targetId) => {
+        if(chkDiscount) {
+            return EduData.filter(item => item.parentId == targetId && item.price != item.discountPrice);
+        } else {
+            return {};
+        }
     };
 
-    const freeFt = (targetId) => {
-        return EduData.filter(item => item.parentId == targetId && item.discountPrice == 0);
+    const ckFreeFt = (targetId) => {
+         console.log( "targetId : " , targetId)
+        if(chkIsFree) {
+            return EduData.filter(item => item.parentId == targetId && item.discountPrice == 0);
+        } else {
+            return {};
+        }
     };
 
     const filterHandler = (e) => {
         const targetId = e.target.value;
         setMajorCateId(targetId);
-        setSubCateId(null);
+        setSubCateId(0);
 
         if(targetId == "all") {
             setEduList(EduData);
@@ -40,18 +63,19 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
         if(next) {
             // 선택(할인중인것)
             if(majorCateId || subCateId) {
-                setEduList(eduList.filter(item => item.price != item.discountPrice));
+                setEduList(eduList.filter(item => item.price != item.discountPrice), ckFreeFt(subCateId == 0 ? majorCateId : subCateId));
             } else {
-                setEduList(EduData.filter(item => item.price != item.discountPrice));
+                setEduList(EduData.filter(item => item.price != item.discountPrice), ckFreeFt(subCateId == 0 ? majorCateId : subCateId));
             }
         } else {
             // 선택해제(전체)
+            console.log(majorCateId , " --- " , subCateId)
             if(majorCateId && subCateId) {
-                setEduList(EduData.filter(a => a.categoryId == subCateId));
+                setEduList(EduData.filter(a => a.categoryId == subCateId), ckFreeFt(subCateId));
             } else
             if(majorCateId) {
                 const cateArr = EduCategories?.filter(item => item.parentId == majorCateId);
-                setEduList(EduData.filter(a => cateArr.some(b => b.id == a.categoryId)));
+                setEduList(EduData.filter(a => cateArr.some(b => b.id == a.categoryId)), ckFreeFt(majorCateId));
                 // console.log( "EduData : ", EduData )
             }  
             else {
@@ -102,7 +126,7 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
     }, [subCateId]);
 
     useEffect(() => {
-         console.log(eduList  )
+        //  console.log(eduList  )
 
     }, [eduList]);
 
@@ -138,6 +162,7 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
                         className={`${chkIsFree ? "filter_chkIsFree" : ""} filter_chkBtn`}> 무료 </button>
                     {/* <button onClick={resetSearch}
                         className=""> 초기화 </button> */}
+                        {eduCount} 건
                 </div>
                 <div className="filter_sort">
                     <select>

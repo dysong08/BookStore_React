@@ -1,43 +1,41 @@
 import { useEffect, useState } from "react";
-// import EduData from "../json/EduData.json";
 import "../css/EduHome.css";
 import "components/Parts/css/Font.css";
 import { Link } from "react-router-dom";
+import EduApi from "../api/EduApi.js";
 
-export default function EduHome( { eduList, setEduList, searchText, checkedMenu, checkedCateId, action }) {
+export default function EduHome( { eduList, setEduList, searchText, checkedMenu, checkedCateId, action, setEduCount }) {
 
-    // useEffect(() => {
-    //      console.log(EduData)
-    //     setEduList(EduData);
-    // }, []);
 
-    // useEffect(() => {
-    //     console.log(eduList)
-    // }, [eduList]);
 
     useEffect(() => {
-        let tempArr = [];
-        let cateArr = [];
-        let searchArr = [];
+        const fetchInit = async () => {
+            const res = await EduApi.getEduListAll();
+            setEduList(res);
+        }
+        fetchInit();
+    }, []);
+   
+    useEffect(() => { 
 
-        // if(checkedCateId) {
-        //     cateArr = EduData?.filter(item => item.id == checkedCateId || item.parentId == checkedCateId);
-        // };
+    },[eduList])
 
-        // if(searchText != "" && searchText != null && searchText != undefined) {
-            const removeSpace = searchText?.replace(/\s+/g, "");
-            searchArr = eduList?.filter(item => item.title.replace(/\s+/g, "").includes(removeSpace) 
-                                || item.instructor.replace(/\s+/g, "").includes(removeSpace) 
-            );
-        // }
-        // tempArr = [...cateArr, ...searchArr];
+    // useEffect(() => {
+    //     let tempArr = [];
+    //     let cateArr = [];
+    //     let searchArr = [];
 
-        setEduList(searchArr);
-    }, [searchText]);
+    //     const removeSpace = searchText?.replace(/\s+/g, "");
+    //     searchArr = eduList?.filter(item => item.title.replace(/\s+/g, "").includes(removeSpace) 
+    //                         || item.instructor.replace(/\s+/g, "").includes(removeSpace) 
+    //     );
+
+    //     setEduList(searchArr);
+    // }, [searchText]);
 
     return (
         <div className="edu_home_container">
-            <div>{eduList?.length}건</div>
+            
             {
                 eduList?.length > 0 ?
 

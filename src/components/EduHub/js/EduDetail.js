@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom"
-import EduData from "../json/EduData.json";
+import EduApi from "../api/EduApi.js";
 import "../css/EduDetail.css";
 import "components/Parts/css/Font.css";
 import ScrollToTop from "components/Parts/ScrollToTop";
@@ -14,10 +14,16 @@ export default function EduDetail({headerHeight, action}) {
     const [isTopBtnVisible, setIsTopBtnVisible] = useState(false);
 
     useEffect(() => {
-        if(id) {
-            setEdu(...EduData?.filter(item => item.id == id) );
+        if(id) { 
+            const fetchInit = async () => {
+                const res = await EduApi.getEduOne(id);
+                
+                setEdu(res);
+            }
+            fetchInit();
         }
     }, [id]);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -32,8 +38,8 @@ export default function EduDetail({headerHeight, action}) {
     }, []);
 
      useEffect(() => {
-        // console.log("sectionRef : ", sectionRef.current)
-    }, []);
+        // console.log("edu : ", edu)
+    }, [edu]);
 
     const scrollToTop = () => {
         window.scroll({

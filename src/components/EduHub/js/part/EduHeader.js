@@ -15,11 +15,12 @@ export default function EduHeader({location}) {
     const headerRef = useRef();
     const [headerHeight, setHeaderHeight] = useState(null);
     const [action, setAction] = useState("home");
-    const [eduList, setEduList] = useState(EduData);
+    const [eduList, setEduList] = useState([]);
     const [cateList, setCateList] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [checkedMenu, setCheckedMenu] = useState(null);
     const [checkedCateId, setCheckedCateId] = useState(null);
+    const [eduCount, setEduCount] = useState(eduList?.length);
     const placeholder = "강의명 또는 강사명을 입력하세요.";
 
     const checkedMenuHandler = (value) => {
@@ -97,8 +98,8 @@ export default function EduHeader({location}) {
             {
                 action == "home" ?
                 <>
-                    <Filter EduCategories={EduCategories} EduData={EduData} eduList={eduList} setEduList={setEduList} cateList={cateList} setCateList={setCateList}/>
-                    <EduHome eduList={eduList} setEduList={setEduList} searchText={searchText} checkedMenu={checkedMenu} action={action} />
+                    <Filter EduCategories={EduCategories} EduData={EduData} eduList={eduList} setEduList={setEduList} cateList={cateList} setCateList={setCateList} eduCount={eduCount} setEduCount={setEduCount}/>
+                    <EduHome eduList={eduList} setEduList={setEduList} searchText={searchText} checkedMenu={checkedMenu} action={action} setEduCount={setEduCount}/>
                 </>
 
                 :
