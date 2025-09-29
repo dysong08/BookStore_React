@@ -19,12 +19,12 @@ export default function FilterLower({ cateList, setCateList, subCateId, setSubCa
             {
                 cateList?.map((item, index) => 
                     <>
-                    <div key={item.id} onClick={() => cateHandler(item.id)}
+                    <div key={item.id} onClick={() => cateHandler(item.id)} value={item.id}
                         className={`filter_lower_content bold size20
-                                    ${subCateId == item.id ? "filter_lower_content_target" : ""}  
-                                    ${subCateId != item.id ? "filter_lower_content_non-target" : ""}   `} 
-                        value={item.id}>
-                            {item.name}
+                            ${subCateId == item.id ? "filter_lower_content_target" : ""}  
+                            ${subCateId != item.id ? "filter_lower_content_non-target" : ""}   `} 
+                    >
+                        {item.name}
                     </div>
                     </>
                 )

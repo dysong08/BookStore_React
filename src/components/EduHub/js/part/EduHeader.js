@@ -5,9 +5,8 @@ import EduDetail from "../EduDetail";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "components/Parts/SearchBar";
-import EduData from "../../json/EduData.json"
-import EduCategories from "components/EduHub/json/EduCategories.json";
 import EduFooter from "./EduFooter";
+import EduApi from "components/EduHub/api/EduApi";
 
 export default function EduHeader({location}) {
 
@@ -15,13 +14,22 @@ export default function EduHeader({location}) {
     const headerRef = useRef();
     const [headerHeight, setHeaderHeight] = useState(null);
     const [action, setAction] = useState("home");
-    const [eduList, setEduList] = useState([]);
-    const [cateList, setCateList] = useState([]);
+    const [eduListAll, setEduListAll] = useState([]);
+    // const [cateList, setCateList] = useState([]);
     const [searchText, setSearchText] = useState('');
     const [checkedMenu, setCheckedMenu] = useState(null);
     const [checkedCateId, setCheckedCateId] = useState(null);
-    const [eduCount, setEduCount] = useState(eduList?.length);
+
     const placeholder = "강의명 또는 강사명을 입력하세요.";
+
+    useEffect(() => {
+        const fetchInit = async () => {
+            const res = await EduApi.getEduListAll();
+            setEduListAll(res);
+        }
+        fetchInit();
+    }, []);
+
 
     const checkedMenuHandler = (value) => {
         // console.log(value)
@@ -98,8 +106,8 @@ export default function EduHeader({location}) {
             {
                 action == "home" ?
                 <>
-                    <Filter EduCategories={EduCategories} EduData={EduData} eduList={eduList} setEduList={setEduList} cateList={cateList} setCateList={setCateList} eduCount={eduCount} setEduCount={setEduCount}/>
-                    <EduHome eduList={eduList} setEduList={setEduList} searchText={searchText} checkedMenu={checkedMenu} action={action} setEduCount={setEduCount}/>
+                    {/* <Filter eduList={eduList} setEduList={setEduList} cateList={cateList} setCateList={setCateList}  /> */}
+                    <EduHome eduListAll={eduListAll} setEduListAll={setEduListAll} searchText={searchText} checkedMenu={checkedMenu} action={action} />
                 </>
 
                 :

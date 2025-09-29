@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import FilterLower from "./FilterLower";
 import EduCateApi from "components/EduHub/api/EduCateApi";
 
-export default function Filter({EduData, EduCategories, eduList, setEduList, cateList, setCateList, eduCount, setEduCount}) {
+export default function Filter({ eduListAll, setEduListAll, eduList, setEduList, cateList, setCateList, eduCount, setEduCount}) {
 
+    const [cateListAll, setCateListAll] = useState([]);
+    const [majorCateList, setMajorCateList] = useState([]);
     const [majorCateId, setMajorCateId] = useState(0);
     const [subCateId, setSubCateId] = useState(0);
     const [chkDiscount, setChkDiscount] = useState(false);
@@ -13,8 +15,8 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
 
     useEffect(() => {
         const fetchInit = async () => {
-            const res = await EduCateApi.getCateDepth1();
-             console.log( res )
+            const res = await EduCateApi.getCateListAll();
+            setCateListAll(res);
         }
         fetchInit();
     }, []);
@@ -24,18 +26,20 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
     }, [eduList]);
 
     const ckDiscountFt = (targetId) => {
-        if(chkDiscount) {
-            return EduData.filter(item => item.parentId == targetId && item.price != item.discountPrice);
+        if(targetId > 0 && chkDiscount) {
+            return eduList.filter(item => item.parentId == targetId && item.price != item.discountPrice);
         } else {
+            // ckFree 체크후 필터링해줌
             return {};
         }
     };
 
     const ckFreeFt = (targetId) => {
          console.log( "targetId : " , targetId)
-        if(chkIsFree) {
-            return EduData.filter(item => item.parentId == targetId && item.discountPrice == 0);
+        if(targetId > 0 && chkIsFree) {
+            return eduList.filter(item => item.parentId == targetId && item.discountPrice == 0);
         } else {
+            // ckDiscount 체크후 필터링해줌
             return {};
         }
     };
@@ -46,13 +50,13 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
         setSubCateId(0);
 
         if(targetId == "all") {
-            setEduList(EduData);
+            setEduList(eduList);
             setCateList([]);
         } else {
-            // cate parentid == targetid인 eduData를 가져와야함
-            const cateArr = EduCategories?.filter(item => item.parentId == targetId);
-            setEduList(EduData.filter(a => cateArr.some(b => b.id == a.categoryId)));
-            setCateList(EduCategories?.filter(item => item.parentId == targetId));
+            // cate parentid == targetid인 eduList를 가져와야함
+            const cateArr = cateListAll?.filter(item => item.parentId == targetId);
+            setEduList(eduList?.filter(a => cateArr.some(b => b.id == a.categoryId)));
+            setCateList(cateListAll?.filter(item => item.parentId == targetId));
         }
     };
 
@@ -63,23 +67,23 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
         if(next) {
             // 선택(할인중인것)
             if(majorCateId || subCateId) {
-                setEduList(eduList.filter(item => item.price != item.discountPrice), ckFreeFt(subCateId == 0 ? majorCateId : subCateId));
+                setEduList(eduList.filter(item => item.price != item.discountPrice), ckFreeFt(!subCateId || subCateId == 0 ? majorCateId : subCateId));
             } else {
-                setEduList(EduData.filter(item => item.price != item.discountPrice), ckFreeFt(subCateId == 0 ? majorCateId : subCateId));
+                setEduList(eduListAll.filter(item => item.price != item.discountPrice), ckFreeFt(0));
             }
         } else {
             // 선택해제(전체)
             console.log(majorCateId , " --- " , subCateId)
             if(majorCateId && subCateId) {
-                setEduList(EduData.filter(a => a.categoryId == subCateId), ckFreeFt(subCateId));
+                setEduList(eduList.filter(a => a.categoryId == subCateId), ckFreeFt(subCateId));
             } else
             if(majorCateId) {
-                const cateArr = EduCategories?.filter(item => item.parentId == majorCateId);
-                setEduList(EduData.filter(a => cateArr.some(b => b.id == a.categoryId)), ckFreeFt(majorCateId));
-                // console.log( "EduData : ", EduData )
+                const cateArr = cateListAll?.filter(item => item.parentId == majorCateId);
+                setEduList(eduList.filter(a => cateArr.some(b => b.id == a.categoryId)), ckFreeFt(majorCateId));
+                // console.log( "eduList : ", eduList )
             }  
             else {
-                setEduList(EduData);
+                setEduList(eduList);
             }
         }
     };
@@ -93,19 +97,19 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
             if(majorCateId || subCateId) {
                 setEduList(eduList.filter(item => item.discountPrice == 0));
             } else {
-                setEduList(EduData.filter(item => item.discountPrice == 0));
+                setEduList(eduListAll.filter(item => item.discountPrice == 0));
             }
         } else {
             // 선택해제(전체)
             if(majorCateId && subCateId) {
-                setEduList(EduData.filter(a => a.categoryId == subCateId));
+                setEduList(eduList.filter(a => a.categoryId == subCateId));
             } else
             if(majorCateId) {
-                const cateArr = EduCategories?.filter(item => item.parentId == majorCateId);
-                setEduList(EduData.filter(a => cateArr.some(b => b.id == a.categoryId)));
+                const cateArr = cateListAll?.filter(item => item.parentId == majorCateId);
+                setEduList(eduList.filter(a => cateArr.some(b => b.id == a.categoryId)));
             }  
             else {
-                setEduList(EduData);
+                setEduList(eduList);
             }
         }
     };
@@ -113,22 +117,22 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
     useEffect(() => {
         if(subCateId) {
             if(chkDiscount && chkIsFree) {
-                setEduList(EduData.filter(item => (item.price != item.discountPrice || item.discountPrice == 0) && item.categoryId == subCateId ));
+                setEduList(eduList.filter(item => (item.price != item.discountPrice || item.discountPrice == 0) && item.categoryId == subCateId ));
             } else
             if(chkDiscount) {
-                setEduList(EduData.filter(item => item.price != item.discountPrice && item.categoryId == subCateId ) );
+                setEduList(eduList.filter(item => item.price != item.discountPrice && item.categoryId == subCateId ) );
             } else
             if(chkIsFree) {
-                setEduList(EduData.filter(item => item.discountPrice == 0 && item.categoryId == subCateId ) );
+                setEduList(eduList.filter(item => item.discountPrice == 0 && item.categoryId == subCateId ) );
             } else
-                setEduList(EduData.filter(data => data.categoryId == subCateId) );
+                setEduList(eduList.filter(data => data.categoryId == subCateId) );
         }
     }, [subCateId]);
 
     useEffect(() => {
-        //  console.log(eduList  )
+        //  console.log("cateListAll : " , cateListAll  )
 
-    }, [eduList]);
+    }, [cateListAll]);
 
     useEffect(() => {
         //  console.log(cateList  )
@@ -149,7 +153,7 @@ export default function Filter({EduData, EduCategories, eduList, setEduList, cat
                     <select onChange={filterHandler} >
                         <option value={"all"}>전체</option>
                         {
-                            EduCategories?.filter(item => item.parentId == null)
+                            cateListAll?.filter(a => a.depth == 1)
                                 .map(item => 
                                     <option key={item.id} value={item.id}>{item.name}</option>
                             )

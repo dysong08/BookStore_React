@@ -3,18 +3,22 @@ import "../css/EduHome.css";
 import "components/Parts/css/Font.css";
 import { Link } from "react-router-dom";
 import EduApi from "../api/EduApi.js";
+import Filter from "components/Parts/Filter";
 
-export default function EduHome( { eduList, setEduList, searchText, checkedMenu, checkedCateId, action, setEduCount }) {
+export default function EduHome( { eduListAll, setEduListAll, searchText, checkedMenu, checkedCateId, action,  }) {
+
+    const [eduList, setEduList] = useState(eduListAll);
+    const [cateList, setCateList] = useState([]);
+    const [eduCount, setEduCount] = useState(eduList?.length);
 
 
-
-    useEffect(() => {
-        const fetchInit = async () => {
-            const res = await EduApi.getEduListAll();
-            setEduList(res);
-        }
-        fetchInit();
-    }, []);
+    // useEffect(() => {
+    //     const fetchInit = async () => {
+    //         const res = await EduApi.getEduListAll();
+    //         setEduList(res);
+    //     }
+    //     fetchInit();
+    // }, []);
    
     useEffect(() => { 
 
@@ -34,41 +38,49 @@ export default function EduHome( { eduList, setEduList, searchText, checkedMenu,
     // }, [searchText]);
 
     return (
-        <div className="edu_home_container">
+        <>
+            <Filter eduListAll={eduListAll} setEduListAll={setEduListAll} 
+                    eduList={eduList} setEduList={setEduList} 
+                    cateList={cateList} setCateList={setCateList} 
+                    eduCount={eduCount} setEduCount={setEduCount}
+            />
             
-            {
-                eduList?.length > 0 ?
+            <div className="edu_home_container">
+                
+                {
+                    eduList?.length > 0 ?
 
-                eduList?.map((item, index) => item.state == "Y" && 
-                    ( 
-                        <div className="edu_item_card" key={index}>
-                            <Link className="edu_item_imgbox" to={`/eduHub/detail/${item.id}`}>
-                                <img src={item.thumbnail}/>
-                            </Link>
-                            <div className="edu_item_infobox">
-                                <div className={`size18 bold`}>{item.title}</div>
-                                <div className={`lighter`}>{item.instructor}</div>
-                                <div>
-                                    <span className={`${item.price == item.discountPrice ? "" : "strike"}`}>{item.price.toLocaleString()}원</span> 
-                                    <span> {item.price == item.discountPrice ? "" : "|"} </span>
-                                    <span className={`${item.price == item.discountPrice ? "" : "red"}`}>{item.price == item.discountPrice ? "" : item.discountPrice.toLocaleString()+"원"} </span>
-                                </div>
-                                <div>
-                                    <span>{item.rating}</span> 
-                                    <span> | </span>
-                                    <span>{item.students} </span>
-                                </div>
-                                
+                    eduList?.map((item, index) => item.state == "Y" && 
+                        ( 
+                            <div className="edu_item_card" key={index}>
+                                <Link className="edu_item_imgbox" to={`/eduHub/detail/${item.id}`}>
+                                    <img src={item.thumbnail}/>
+                                </Link>
+                                <div className="edu_item_infobox">
+                                    <div className={`size18 bold`}>{item.title}</div>
+                                    <div className={`lighter`}>{item.instructor}</div>
+                                    <div>
+                                        <span className={`${item.price == item.discountPrice ? "" : "strike"}`}>{item.price.toLocaleString()}원</span> 
+                                        <span> {item.price == item.discountPrice ? "" : "|"} </span>
+                                        <span className={`${item.price == item.discountPrice ? "" : "red"}`}>{item.price == item.discountPrice ? "" : item.discountPrice.toLocaleString()+"원"} </span>
+                                    </div>
+                                    <div>
+                                        <span>{item.rating}</span> 
+                                        <span> | </span>
+                                        <span>{item.students} </span>
+                                    </div>
+                                    
 
+                                </div>
                             </div>
-                        </div>
+                        )
                     )
-                )
-                    :
-                    <div>
-                        <p>검색 결과가 없습니다.</p>
-                    </div>
-            }
-        </div>
+                        :
+                        <div>
+                            <p>검색 결과가 없습니다.</p>
+                        </div>
+                }
+            </div>
+        </>
     )
 }
