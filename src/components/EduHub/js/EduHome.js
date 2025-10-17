@@ -7,22 +7,25 @@ import Filter from "components/Parts/Filter";
 
 export default function EduHome( { eduListAll, setEduListAll, searchText, checkedMenu, checkedCateId, action,  }) {
 
-    const [eduList, setEduList] = useState(eduListAll);
+    const [eduList, setEduList] = useState([]);
     const [cateList, setCateList] = useState([]);
     const [eduCount, setEduCount] = useState(eduList?.length);
 
 
-    // useEffect(() => {
-    //     const fetchInit = async () => {
-    //         const res = await EduApi.getEduListAll();
-    //         setEduList(res);
-    //     }
-    //     fetchInit();
-    // }, []);
+    useEffect(() => {
+        const fetchInit = async () => {
+            const res = await EduApi.getEduListAll();
+            setEduListAll(res);
+            setEduList(res);
+        }
+        fetchInit();
+    }, []);
    
     useEffect(() => { 
+        // console.log("eduList : ", eduList)
 
     },[eduList])
+
 
     // useEffect(() => {
     //     let tempArr = [];

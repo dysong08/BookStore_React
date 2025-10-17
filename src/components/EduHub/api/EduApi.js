@@ -3,7 +3,7 @@ let baseURL = process.env.REACT_APP_API_URL+"/api/edu";
 
 const getEduListAll = async () => {
     try {
-        const res = await axios.get(baseURL+`/eduListAll`);
+        const res = await axios.get(baseURL+`/getEduListAll`);
         return res.data;
     } catch (error) {
         console.log(error);
@@ -13,7 +13,7 @@ const getEduListAll = async () => {
 
 const getEduOne = async (id) => {
     try {
-        const res = await axios.get(baseURL+`/eduOne/${id}`);
+        const res = await axios.get(baseURL+`/getEduOne/${id}`);
         return res.data;
     } catch (error) {
         console.log(error);

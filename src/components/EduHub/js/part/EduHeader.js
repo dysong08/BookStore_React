@@ -22,13 +22,8 @@ export default function EduHeader({location}) {
 
     const placeholder = "강의명 또는 강사명을 입력하세요.";
 
-    useEffect(() => {
-        const fetchInit = async () => {
-            const res = await EduApi.getEduListAll();
-            setEduListAll(res);
-        }
-        fetchInit();
-    }, []);
+
+
 
 
     const checkedMenuHandler = (value) => {

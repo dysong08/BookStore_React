@@ -29,11 +29,11 @@
     width: 75px;
 }
 
-.filter_chkDiscount {
+.filter_isDiscount {
     background-color: blue;
     color: white;
 }
-.filter_chkIsFree {
+.filter_isFree {
     background-color: blue;
     color: white;
 }

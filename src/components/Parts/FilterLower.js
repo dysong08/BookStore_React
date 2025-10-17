@@ -6,9 +6,11 @@ export default function FilterLower({ cateList, setCateList, subCateId, setSubCa
 
     const cateHandler = (id) => {
         if(id) {
-            // console.log(id)
-            setSubCateId(id);
-
+            if(id == subCateId) {
+                setSubCateId(0);
+            } else {
+                setSubCateId(id);
+            }
         }
     };
 
@@ -17,8 +19,8 @@ export default function FilterLower({ cateList, setCateList, subCateId, setSubCa
 
             {/* {console.log(cateList)} */}
             {
-                cateList?.map((item, index) => 
-                    <>
+                cateList?.map(item => 
+                <>
                     <div key={item.id} onClick={() => cateHandler(item.id)} value={item.id}
                         className={`filter_lower_content bold size20
                             ${subCateId == item.id ? "filter_lower_content_target" : ""}  
@@ -26,7 +28,7 @@ export default function FilterLower({ cateList, setCateList, subCateId, setSubCa
                     >
                         {item.name}
                     </div>
-                    </>
+                </>
                 )
             }
         </div>
