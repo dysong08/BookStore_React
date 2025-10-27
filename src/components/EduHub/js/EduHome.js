@@ -22,7 +22,7 @@ export default function EduHome( { eduListAll, setEduListAll, searchText, checke
     }, []);
    
     useEffect(() => { 
-        // console.log("eduList : ", eduList)
+        // console.log("eduList 바뀜 : ", eduList)
 
     },[eduList])
 
@@ -42,7 +42,7 @@ export default function EduHome( { eduListAll, setEduListAll, searchText, checke
 
     return (
         <>
-            <Filter eduListAll={eduListAll} setEduListAll={setEduListAll} 
+            <Filter eduListAll={eduListAll} 
                     eduList={eduList} setEduList={setEduList} 
                     cateList={cateList} setCateList={setCateList} 
                     eduCount={eduCount} setEduCount={setEduCount}
@@ -68,9 +68,9 @@ export default function EduHome( { eduListAll, setEduListAll, searchText, checke
                                         <span className={`${item.price == item.discountPrice ? "" : "red"}`}>{item.price == item.discountPrice ? "" : item.discountPrice.toLocaleString()+"원"} </span>
                                     </div>
                                     <div>
-                                        <span>{item.rating}</span> 
+                                        <span>⭐{item.rating}</span> 
                                         <span> | </span>
-                                        <span>{item.students} </span>
+                                        <span>📖{item.students} </span>
                                     </div>
                                     
 

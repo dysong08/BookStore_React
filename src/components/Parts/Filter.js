@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import FilterLower from "./FilterLower";
 import EduCateApi from "components/EduHub/api/EduCateApi";
 
-export default function Filter({ eduListAll, setEduListAll, eduList, setEduList, cateList, setCateList, eduCount, setEduCount}) {
+export default function Filter({ eduListAll, eduList, setEduList, cateList, setCateList, eduCount, setEduCount}) {
 
     const [cateListAll, setCateListAll] = useState([]);
-    const [majorCateList, setMajorCateList] = useState([]);
+    // majorCateVal 이걸 어쩔까 고민중....
+    const [majorCateVal, setMajorCateVal] = useState("all");
     const [majorCateId, setMajorCateId] = useState(0);
     const [subCateId, setSubCateId] = useState(0);
     const [isDiscount, setIsDiscount] = useState(false);
     const [isFree, setIsFree] = useState(false);
+    const [sortType, setSortType] = useState("none");
 
 
     useEffect(() => {
@@ -30,19 +32,13 @@ export default function Filter({ eduListAll, setEduListAll, eduList, setEduList,
     }, [isDiscount, isFree]);
 
     useEffect(() => {
-        if(subCateId > 0) {
-            setEduList(getChkIsCateId(majorCateId, subCateId));
-        }
-        if(subCateId == 0) {
-            setEduList(getChkIsCateId(majorCateId, 0));
-        }
+        setSortType("none");
+        setEduList(getChkIsCateId(majorCateId, subCateId));
     }, [subCateId]);
 
     useEffect(() => {
         //  console.log("cateListAll : " , cateListAll  )
     }, [cateListAll]);
-
-
 
 
     const filterHandler = (e) => {
@@ -51,6 +47,7 @@ export default function Filter({ eduListAll, setEduListAll, eduList, setEduList,
         setSubCateId(0);
         setIsDiscount(false);
         setIsFree(false);
+        setSortType("none");
 
         if(majorId == "all") {
             setEduList(eduListAll);
@@ -63,129 +60,95 @@ export default function Filter({ eduListAll, setEduListAll, eduList, setEduList,
     };
 
     const getChkIsCateId = (majId, subId) => {
-        console.log("isChkCate : ",  majId, subId)
+        // console.log("isChkCate : ",  majId, subId)
         let cateArr = [];
-       
         if(subId > 0 && majId > 0) {
             return eduListAll.filter(item => item.categoryId == subId);
-            // cateArr = cateListAll?.filter(item => item.id == subId);
-            // setEduList( eduListAll?.filter(a => cateArr.some(b => b.id == a.categoryId && b.parentId == majId))  );
         } else
         if(subId == 0 && majId > 0) {
             cateArr = cateListAll?.filter(item => item.parentId == majId);
-            console.log("cateArr : ", cateArr)
-            console.log("cateArr 다음 : ", eduListAll?.filter(a => cateArr.some(b => b.id == a.categoryId)))
             return eduListAll?.filter(a => cateArr.some(b => b.id == a.categoryId));
         } else 
         if(subId == 0 && majId == 0){
-            console.log("eduListAll : ",  eduListAll)
             return eduListAll?.length > 0 ? eduListAll : [];
         }
     };
-
     
     const getFilterOp = () => {
-        // ====== 카테Id 있을경우 적용도 해야함!!!!!!!!!!  ==
+        // console.log("isDiscount : ", isDiscount, ", isFree : ", isFree);
+        let cateArr = [];
+        if(majorCateId > 0 || subCateId > 0) {
+            cateArr = getChkIsCateId(majorCateId, subCateId);
+        } else
+        if(majorCateId == 0 && subCateId == 0) {
+            cateArr = eduListAll;
+        }
 
+        let temp = [];
         if(isDiscount && isFree) {
-            return eduList.filter(item => item.price != item.discountPrice || item.discountPrice == 0);
+            temp = eduListAll.filter(item => item.price != item.discountPrice || item.discountPrice == 0);
         } else
         if(isDiscount && !isFree) {
-            return eduList.filter(item => item.price != item.discountPrice);
+            temp = eduListAll.filter(item => item.price != item.discountPrice);
         } else 
         if(!isDiscount && isFree) {
-            return eduList.filter(item => item.discountPrice == 0);
+            temp = eduListAll.filter(item => item.discountPrice == 0);
         } else {
-            return eduListAll?.length > 0 ? eduListAll : [];
+            temp = eduListAll?.length > 0 ? eduListAll : [];
+        }
+        return temp.filter(a => cateArr.some(b => b.id == a.id));
+    };
+
+    const sortHandler = (e) => {
+        setSortType(e.target.value);
+    };
+
+    useEffect(() => {
+        // console.log("sortType : ", sortType)
+        getSortFilter();
+    }, [sortType]);
+
+
+    const getSortFilter = () => {
+        if(sortType == "none") {
+            setEduList(prev => [...prev]);
+        }
+        if(sortType == "name") {
+            setEduList(prev => [...prev].sort((a, b) => a.title.localeCompare(b.title)));
+        }
+        if(sortType == "rating") {
+            setEduList(prev => [...prev].sort((a, b) => {
+                if(a.rating !== b.rating) return b.rating - a.rating;
+                return a.title.localeCompare(b.title);
+            }));
+        }
+        if(sortType == "students") {
+            setEduList(prev => [...prev].sort((a, b) => {
+                if(a.students !== b.students) return b.students - a.students;
+                return a.title.localeCompare(b.title);
+            }));
+        }
+        if(sortType == "priceDesc") {
+            setEduList(prev => [...prev].sort((a, b) => {
+                if(a.price !== b.price) return b.price - a.price;
+                return a.title.localeCompare(b.title);
+            }));
+        }
+        if(sortType == "priceAsc") {
+            setEduList(prev => [...prev].sort((a, b) => {
+                if(a.price !== b.price) return a.price - b.price;
+                return a.title.localeCompare(b.title);
+            }));   
         }
     };
 
-    const chkIsCate = () => {
-        if(majorCateId || subCateId) {
-            
-        }
+    const resetFilter = () => {
+        // setMajorCateVal("all");
+        setMajorCateId(0);
+        setIsDiscount(false);
+        setIsFree(false);
+        setSortType("none");
     };
-
-    const ckFreeFt = () => {
-
-    };
-
-    const displayDiscount = () => {
-        if(isDiscount) {
-            // 할인중 선택한 상태
-            if(majorCateId || subCateId) {
-                setEduList(eduList.filter(item => item.price != item.discountPrice), ckFreeFt(!subCateId || subCateId == 0 ? majorCateId : subCateId));
-            } else {
-                setEduList(eduListAll.filter(item => item.price != item.discountPrice), ckFreeFt(0));
-            }
-        } else {
-            // 할인중 선택해제(전체)
-            console.log(majorCateId , " != " , subCateId)
-            if(majorCateId && subCateId) {
-                setEduList(eduListAll.filter(a => a.categoryId == subCateId), ckFreeFt(subCateId));
-            } else
-            if(majorCateId) {
-                const cateArr = cateListAll?.filter(item => item.parentId == majorCateId);
-                setEduList(eduListAll.filter(a => cateArr.some(b => b.id == a.categoryId)), ckFreeFt(majorCateId));
-                // console.log( "eduList : ", eduList )
-            }  
-            else {
-                setEduList(eduList);
-            }
-        }
-    };
-
-    const displayisFree = () => {
-        if(isFree) {
-            // 선택(무료인것 && 카테고리 선택한 상태)
-            if(majorCateId || subCateId) {
-                if(isDiscount) { 
-                    //할인중 선택한 상태
-                    // console.log( [...new Set ([...eduList, ...eduList.filter(item => item.discountPrice == 0)])] )
-                    setEduList([...new Set([...eduList, ...eduList.filter(item => item.discountPrice == 0)])] );
-                } else { 
-                    //할인중 선택 아닐때
-                    setEduList(eduList.filter(item => item.discountPrice == 0));
-                }
-            } else {
-                // 전체 && 무료인것
-                setEduList(eduListAll.filter(item => item.discountPrice == 0));
-            }
-        } else{
-            // 선택해제(전체) -> 할인중 + 카테고리 상태확인
-            if(isDiscount) {
-                if(majorCateId && subCateId) {
-                    //할인중+카테고리 있을때
-
-                } else {
-                    //할인중+카테고리 없을때
-
-                }
-                console.log("할인 체크중")
-                // 카테고리 && 할인중 체크상태
-                // setEduList( [...new Set([...])])
-                setEduList(eduListAll.filter(a => a.categoryId == subCateId && a.price != a.discountPrice));
-            } else {
-                // 할인체크X 카테고리만 체크상태
-                console.log("할인 체크XXX")
-                setEduList(eduListAll.filter(a => a.categoryId == subCateId));
-            }
-
-
-            if(majorCateId && subCateId) {
-
-            } else
-            if(majorCateId) {
-                const cateArr = cateListAll?.filter(item => item.parentId == majorCateId);
-                setEduList(eduListAll.filter(a => cateArr.some(b => b.id == a.categoryId)));
-            }  
-            else {
-                setEduList(eduList);
-            }
-        }
-    };
-
-    
 
     return (
         <div className="filter_container">
@@ -198,8 +161,8 @@ export default function Filter({ eduListAll, setEduListAll, eduList, setEduList,
             <div className="filter_box">
                 <div className="filter_search">
                     
-                    <select onChange={filterHandler} >
-                        <option value={"all"}>전체</option>
+                    <select value={majorCateVal} onChange={filterHandler} >
+                        <option value={"0"}>전체</option>
                         {
                             cateListAll?.filter(a => a.depth == 1)
                                 .map(item => 
@@ -212,13 +175,18 @@ export default function Filter({ eduListAll, setEduListAll, eduList, setEduList,
                         className={`${isDiscount ? "filter_isDiscount" : ""} filter_chkBtn`}> 할인중 </button>
                     <button onClick={() => setIsFree(prev => !prev)}
                         className={`${isFree ? "filter_isFree" : ""} filter_chkBtn`}> 무료 </button>
-                    {/* <button onClick={resetSearch}
-                        className=""> 초기화 </button> */}
+                    <button onClick={resetFilter}
+                        className=""> 초기화 </button> 
                         {eduCount} 건
                 </div>
                 <div className="filter_sort">
-                    <select>
-                        <option>정렬</option>
+                    <select value={sortType} onChange={sortHandler}>
+                        <option value={"none"}>정렬</option>
+                        <option value={"name"}>이름순</option>
+                        <option value={"rating"}>평점순</option>
+                        <option value={"students"}>수강생순</option>
+                        <option value={"priceDesc"}>가격높은순</option>
+                        <option value={"priceAsc"}>가격낮은순</option>
                     </select>
                 </div>
             </div>
