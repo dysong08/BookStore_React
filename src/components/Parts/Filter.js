@@ -6,8 +6,6 @@ import EduCateApi from "components/EduHub/api/EduCateApi";
 export default function Filter({ eduListAll, eduList, setEduList, cateList, setCateList, eduCount, setEduCount}) {
 
     const [cateListAll, setCateListAll] = useState([]);
-    // majorCateVal 이걸 어쩔까 고민중....
-    const [majorCateVal, setMajorCateVal] = useState("all");
     const [majorCateId, setMajorCateId] = useState(0);
     const [subCateId, setSubCateId] = useState(0);
     const [isDiscount, setIsDiscount] = useState(false);
@@ -143,7 +141,6 @@ export default function Filter({ eduListAll, eduList, setEduList, cateList, setC
     };
 
     const resetFilter = () => {
-        // setMajorCateVal("all");
         setMajorCateId(0);
         setIsDiscount(false);
         setIsFree(false);
@@ -161,8 +158,8 @@ export default function Filter({ eduListAll, eduList, setEduList, cateList, setC
             <div className="filter_box">
                 <div className="filter_search">
                     
-                    <select value={majorCateVal} onChange={filterHandler} >
-                        <option value={"0"}>전체</option>
+                    <select value={majorCateId} onChange={filterHandler} >
+                        <option value={0}>전체</option>
                         {
                             cateListAll?.filter(a => a.depth == 1)
                                 .map(item => 

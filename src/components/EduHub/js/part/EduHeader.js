@@ -15,31 +15,13 @@ export default function EduHeader({location}) {
     const [headerHeight, setHeaderHeight] = useState(null);
     const [action, setAction] = useState("home");
     const [eduListAll, setEduListAll] = useState([]);
+    const [eduList, setEduList] = useState([]);
     // const [cateList, setCateList] = useState([]);
-    const [searchText, setSearchText] = useState('');
+    const [keyword, setKeyword] = useState('');
+    // const [searchText, setSearchText] = useState('');
     const [checkedMenu, setCheckedMenu] = useState(null);
     const [checkedCateId, setCheckedCateId] = useState(null);
 
-    const placeholder = "강의명 또는 강사명을 입력하세요.";
-
-
-
-
-
-    const checkedMenuHandler = (value) => {
-        // console.log(value)
-    };
-
-    useEffect(() => {
-        setAction(pathname.includes("/detail") ? "detail" : "home");
-    }, [pathname]);
-
-    useEffect(() => {
-        // console.log("searchText : ", searchText)
-        // if(searchText.length > 0) {
-
-        // }
-    }, [searchText]);
 
     useEffect(() => {
         if(headerRef.current) {
@@ -52,12 +34,41 @@ export default function EduHeader({location}) {
         return () => window.removeEventListener("resize", resizeHandler);
     }, []);
 
+    useEffect(() => {
+        setAction(pathname.includes("/detail") ? "detail" : "home");
+    }, [pathname]);
+
+    useEffect(() => {
+        if(keyword.length > 0) {
+            searchKeyword();
+        }
+    }, [keyword]);
+
+    const searchKeyword = () => {
+        const arr= [];
+        const searchKw = keyword.replace(/\s+/g, "").toLowerCase();
+        eduListAll?.filter(item => {
+            const title = item.title.replace(/\s+/g, "").toLowerCase();
+            const instructor = item.instructor.replace(/\s+/g, "").toLowerCase();
+            // const description = item.description.replace(/\s+/g, "").toLowerCase();
+            if(title.includes(searchKw) || instructor.includes(searchKw)) arr.push(item);
+        })
+        const temp = [...new Set(arr)]; 
+        setEduList(temp);
+    };
+
+        
+    const checkedMenuHandler = (value) => {
+        // console.log(value)
+    };
+
+
     return (
         <>
             <div className="edu_header_container" ref={headerRef}>
                 <div className="edu_header_top">
                     <div>
-                        <Link to={"/eduHub"} onClick={(e) => { e.preventDefault(); setSearchText(""); } }>
+                        <Link to={"/eduHub"} onClick={(e) => { e.preventDefault(); setKeyword(""); } }>
                             Edu로고
                         </Link>
                     </div>
@@ -70,8 +81,10 @@ export default function EduHeader({location}) {
                         </div>
                         <div className="edu_header_center_center">
                             <div className="edu_header_searchbar">
-                                <SearchBar searchText={searchText} setSearchText={setSearchText} 
-                                            placeholder={placeholder} pathname={pathname} />
+                                <SearchBar keyword={keyword} setKeyword={setKeyword}
+                                        // searchText={searchText} setSearchText={setSearchText} 
+                                            comboText={["강의명", "강사명", "내용"]}
+                                            placeholder={"강의명 또는 강사명을 입력하세요."} pathname={pathname} />
                             </div>
                         </div>
                         <div className="edu_header_center_side">
@@ -102,7 +115,7 @@ export default function EduHeader({location}) {
                 action == "home" ?
                 <>
                     {/* <Filter eduList={eduList} setEduList={setEduList} cateList={cateList} setCateList={setCateList}  /> */}
-                    <EduHome eduListAll={eduListAll} setEduListAll={setEduListAll} searchText={searchText} checkedMenu={checkedMenu} action={action} />
+                    <EduHome eduList={eduList} setEduList={setEduList} eduListAll={eduListAll} setEduListAll={setEduListAll} keyword={keyword} checkedMenu={checkedMenu} action={action} />
                 </>
 
                 :

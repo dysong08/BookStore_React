@@ -3,13 +3,13 @@
     "roleId": 1,
     "name": "일반",
     "code": "user",
-    "description": "일반 사용자 (비회원 또는 기본 회원)"
+    "description": "일반 사용자"
   },
   {
     "roleId": 2,
     "name": "학생",
     "code": "student",
-    "description": "강의를 수강하는 사용자"
+    "description": "19세 미만 사용자"
   },
   {
     "roleId": 3,

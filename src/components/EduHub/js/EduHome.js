@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import EduApi from "../api/EduApi.js";
 import Filter from "components/Parts/Filter";
 
-export default function EduHome( { eduListAll, setEduListAll, searchText, checkedMenu, checkedCateId, action,  }) {
+export default function EduHome( { eduList, setEduList, eduListAll, setEduListAll, keyword, checkedMenu, checkedCateId, action,  }) {
 
-    const [eduList, setEduList] = useState([]);
+
     const [cateList, setCateList] = useState([]);
     const [eduCount, setEduCount] = useState(eduList?.length);
 
